@@ -1,10 +1,12 @@
 package com.schibsted.exercise;
 
-
+import java.util.*;
 import java.io.File;
 import java.util.Scanner;
+import java.lang.String;
 
 import com.schibsted.exercise.indexer.Indexer;
+import com.schibsted.exercise.searcher.Searcher;
 
 public class SimpleSearch {
 
@@ -39,6 +41,7 @@ public class SimpleSearch {
 
                 default:
                     System.out.println("Searching for " + line);
+                    new Searcher(new ArrayList<String>(Arrays.asList(line.split(" "))));
                     break;
             }
         }

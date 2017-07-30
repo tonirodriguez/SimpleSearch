@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.io.IOException;
 
+import com.schibsted.exercise.Utils.Tupla;
+
 
 public class Indexer {
 
@@ -26,8 +28,8 @@ public class Indexer {
             "what", "when", "where", "which", "while", "who", "whom", "why",
             "will", "with", "would", "yet", "you", "your");
 
-    Map<String, List<Integer>> index = new HashMap<String, List<Integer>>();
-    List<Tupla> files = new ArrayList<Tupla>();
+    public static Map<String, List<Integer>> index = new HashMap<String, List<Integer>>();
+    public static List<Tupla> files = new ArrayList<Tupla>();
 
     public Indexer(String path) throws IOException {
 
@@ -68,19 +70,5 @@ public class Indexer {
         System.out.println("indexed " + file + " "  + countWords +" words");
 
         return(countWords);
-    }
-
-    private class Tupla {
-        private String file;
-        private int words;
-
-        public Tupla(String file, int words) {
-            this.file = file;
-            this.words = words;
-        }
-
-        public String toString() {
-            return (this.file + " " + this.words);
-        }
     }
 }

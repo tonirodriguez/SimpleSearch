@@ -1,5 +1,6 @@
 # exclude everything except directory src and pom.xml file
 /*
+.DS_Store
 !/src
 !pom.xml
 !.gitignore
