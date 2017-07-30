@@ -16,8 +16,7 @@ public class SimpleSearch {
         }
 
         final File indexableDirectory = new File(args[0]);
-        //TODO: Index all files in indexableDirectory
-        new Indexer(args[0]);
+        new Indexer(indexableDirectory);
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -25,17 +24,16 @@ public class SimpleSearch {
         while(run){
             System.out.print("search> ");
             final String line = keyboard.nextLine();
-            //TODO: Search indexed files for words in line
             switch (line){
                 case "":
                     break;
 
-                case "q":
+                case ":q":
                     System.out.println("Bye");
                     run = false;
                     break;
 
-                case "h":
+                case ":h":
                     System.out.println("This is the help");
                     break;
 

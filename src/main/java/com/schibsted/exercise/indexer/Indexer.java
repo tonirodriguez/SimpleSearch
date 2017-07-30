@@ -31,16 +31,21 @@ public class Indexer {
     public static Map<String, List<Integer>> index = new HashMap<String, List<Integer>>();
     public static List<Tupla> files = new ArrayList<Tupla>();
 
-    public Indexer(String path) throws IOException {
-
-        final File dir = new File(path);
-        final String[] directory = dir.list();
-
-        for (String file: directory){
-            files.add(new Tupla(file, indexFile(path, file)));
-        }
+    public Indexer(final File path) throws IOException {
+        indexFilesForFolder(path);
+        //TODO: Delete ouput
         System.out.println(index);
         System.out.println(files);
+    }
+
+    public void indexFilesForFolder(final File folder) throws IOException {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                indexFilesForFolder(fileEntry);
+            } else {
+                files.add(new Tupla(fileEntry.getName(), indexFile(folder.getPath(), fileEntry.getName())));
+            }
+        }
     }
 
     public int indexFile(String path, String file) throws IOException {
@@ -67,6 +72,7 @@ public class Indexer {
         catch(IOException e) {
             System.out.println("Exception reading file " + path + "/" + file);
         }
+
         System.out.println("indexed " + file + " "  + countWords +" words");
 
         return(countWords);
