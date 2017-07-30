@@ -1,0 +1,6 @@
+# exclude everything except directory src and pom.xml file
+/*
+!/src
+!pom.xml
+!.gitignore
+!README.md
