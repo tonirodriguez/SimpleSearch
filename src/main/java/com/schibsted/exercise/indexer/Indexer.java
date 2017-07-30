@@ -34,16 +34,21 @@ public class Indexer {
     public Indexer(final File path) throws IOException {
         indexFilesForFolder(path);
         //TODO: Delete ouput
+        //TODO: Support to index one individual file
         System.out.println(index);
         System.out.println(files);
     }
 
     public void indexFilesForFolder(final File folder) throws IOException {
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                indexFilesForFolder(fileEntry);
-            } else {
-                files.add(new Tupla(fileEntry.getName(), indexFile(folder.getPath(), fileEntry.getName())));
+        if (folder.isFile()) {
+            files.add(new Tupla(folder.getName(), indexFile(folder.getParent(), folder.getName())));
+        } else {
+            for (final File fileEntry : folder.listFiles()) {
+                if (fileEntry.isDirectory()) {
+                    indexFilesForFolder(fileEntry);
+                } else {
+                    files.add(new Tupla(fileEntry.getName(), indexFile(folder.getPath(), fileEntry.getName())));
+                }
             }
         }
     }
