@@ -1,10 +1,10 @@
 package com.schibsted.exercise.indexer;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.schibsted.exercise.Utils.Tupla;
 
@@ -12,7 +12,7 @@ import com.schibsted.exercise.Utils.Tupla;
 public class Indexer {
 
     //TODO: Extract stopwords to a Text File
-    List<String> stopwords = Arrays.asList("a", "able", "about",
+    public static List<String> stopwords = Arrays.asList("a", "able", "about",
             "across", "after", "all", "almost", "also", "am", "among", "an",
             "and", "any", "are", "as", "at", "be", "because", "been", "but",
             "by", "can", "cannot", "could", "dear", "did", "do", "does",
@@ -30,56 +30,36 @@ public class Indexer {
 
     public static Map<String, List<Integer>> index = new HashMap<String, List<Integer>>();
     public static List<Tupla> files = new ArrayList<Tupla>();
+    private int numThreads = 5;
+    private ExecutorService executor;
+    private int count = 0;
 
     public Indexer(final File path) throws IOException {
+        executor = Executors.newFixedThreadPool(numThreads);
         indexFilesForFolder(path);
-        //TODO: Delete ouput
-        //TODO: Support to index one individual file
-        System.out.println(index);
-        System.out.println(files);
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+        System.out.println("Finished all Threads");
     }
+
 
     public void indexFilesForFolder(final File folder) throws IOException {
         if (folder.isFile()) {
-            files.add(new Tupla(folder.getName(), indexFile(folder.getParent(), folder.getName())));
+            Runnable worker = new WorkerThread(folder.getParent(), folder.getName(), count);
+            count++;
+            executor.execute(worker);
         } else {
             for (final File fileEntry : folder.listFiles()) {
                 if (fileEntry.isDirectory()) {
                     indexFilesForFolder(fileEntry);
                 } else {
-                    files.add(new Tupla(fileEntry.getName(), indexFile(folder.getPath(), fileEntry.getName())));
+                    Runnable worker = new WorkerThread(folder.getPath(), fileEntry.getName(), count);
+                    count++;
+                    executor.execute(worker);
                 }
             }
         }
-    }
-
-    public int indexFile(String path, String file) throws IOException {
-
-        int countWords = 0;
-        int posFile = files.size();
-        try {
-            BufferedReader reader = Files.newBufferedReader(Paths.get(path, file));
-            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                for (String _word : line.split("\\W+")) {
-                    String word = _word.toLowerCase();
-                    countWords++;
-                    if (stopwords.contains(word))
-                        continue;
-                    List<Integer> idx = index.get(word);
-                    if (idx == null) {
-                        idx = new LinkedList<Integer>();
-                        index.put(word, idx);
-                    }
-                    idx.add(posFile);
-                }
-            }
-        }
-        catch(IOException e) {
-            System.out.println("Exception reading file " + path + "/" + file);
-        }
-
-        System.out.println("indexed " + file + " "  + countWords +" words");
-
-        return(countWords);
     }
 }
+

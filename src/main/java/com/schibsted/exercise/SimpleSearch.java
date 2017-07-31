@@ -29,11 +29,13 @@ public class SimpleSearch {
                     break;
 
                 case ":q":
+                case ":Q":
                     System.out.println("Bye");
                     run = false;
                     break;
 
                 case ":h":
+                case ":H":
                     System.out.println("This is the help");
                     break;
 
