@@ -15,8 +15,8 @@ public class SimpleSearch {
             throw new IllegalArgumentException("No directory given to index.");
         }
 
-        final File indexableDirectory = new File(args[0]);
-        new Indexer(indexableDirectory);
+        final File directory = new File(args[0]);
+        new Indexer(directory);
 
         Scanner keyboard = new Scanner(System.in);
 

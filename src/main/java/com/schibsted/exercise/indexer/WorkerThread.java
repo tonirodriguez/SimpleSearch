@@ -28,7 +28,7 @@ public class WorkerThread implements Runnable {
             indexFile(path, file, count);
         }
         catch (IOException e) {
-            System.out.println("Exception on run method");
+            System.out.println("Exception on run method: " + e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class WorkerThread implements Runnable {
             System.out.println("Exception reading file " + path + "/" + file);
         }
 
-        System.out.println("indexed " + file + " "  + countWords +" words");
+        System.out.println("indexed " + file + " "  + countWords + " words");
 
         return(countWords);
     }

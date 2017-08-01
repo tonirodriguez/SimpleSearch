@@ -30,17 +30,18 @@ public class Indexer {
 
     public static Map<String, List<Integer>> index = new HashMap<String, List<Integer>>();
     public static List<Tupla> files = new ArrayList<Tupla>();
-    private int numThreads = 5;
-    private ExecutorService executor;
+    private ExecutorService executor = Executors.newCachedThreadPool();
     private int count = 0;
 
     public Indexer(final File path) throws IOException {
-        executor = Executors.newFixedThreadPool(numThreads);
         indexFilesForFolder(path);
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
         System.out.println("Finished all Threads");
+        //TODO: DELETE
+        //System.out.println(index);
+        //System.out.println(files);
     }
 
 

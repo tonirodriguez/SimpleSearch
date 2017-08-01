@@ -38,8 +38,8 @@ public class IndexerTest {
         File resourcesDirectory = new File("src/test/resources/data1.txt");
         new Indexer(resourcesDirectory);
 
-        Assert.assertTrue(Indexer.index.size() == 27);
-        Assert.assertTrue(Indexer.files.get(0).words() == 46);
+        Assert.assertTrue(Indexer.index.size() == 84);
+        Assert.assertTrue(Indexer.files.get(0).words() == 177);
         Assert.assertEquals(Indexer.files.get(0).file(), "data1.txt");
     }
 

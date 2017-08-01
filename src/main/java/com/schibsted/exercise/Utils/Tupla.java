@@ -4,6 +4,10 @@ public class Tupla {
     public String file;
     public int words;
 
+    /**
+     * @param file
+     * @param words
+     */
     public Tupla(String file, int words) {
         this.file = file;
         this.words = words;
