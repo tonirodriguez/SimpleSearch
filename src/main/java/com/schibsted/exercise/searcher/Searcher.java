@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.schibsted.exercise.Utils.SearchResults;
 import com.schibsted.exercise.Utils.Cleaner;
+import com.schibsted.exercise.Utils.StopWords;
 import com.schibsted.exercise.indexer.Indexer;
 import static com.schibsted.exercise.indexer.Indexer.files;
 
@@ -11,7 +12,9 @@ public class Searcher {
 
     public static List<SearchResults> searchResults = new ArrayList<SearchResults>();
     private int searchSize;
+    private int invalidWords = 0;
     private Cleaner cleaner = new Cleaner();
+    private List<String> stopWords = new StopWords().stopwords;
 
     public Searcher(String words) throws Exception {
         searchResults.clear();
@@ -29,12 +32,14 @@ public class Searcher {
 
     public Set<Integer> searchWord(String word) {
         Set<Integer> answer = new HashSet<Integer>();
-        //String word = _word.toLowerCase();
-
-        List<Integer> idx = Indexer.index.get(word);
-        if (idx != null) {
-            for (Integer i : idx) {
-                answer.add(i);
+        if(stopWords.contains(word)) {
+            invalidWords++;
+        } else {
+            List<Integer> idx = Indexer.index.get(word);
+            if (idx != null) {
+                for (Integer i : idx) {
+                    answer.add(i);
+                }
             }
         }
         return answer;
@@ -79,7 +84,7 @@ public class Searcher {
 
     public double calculateRank(SearchResults search) {
         double occurrences = Collections.frequency(search.words, true);
-        double result = ((occurrences / searchSize) * 100d);
+        double result = ((occurrences / (searchSize - invalidWords)) * 100d);
 
         return result;
 
