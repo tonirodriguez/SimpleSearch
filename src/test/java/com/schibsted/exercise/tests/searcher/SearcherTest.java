@@ -13,7 +13,7 @@ public class SearcherTest {
     public void searcherFindBasicTest() throws Exception {
         File resourcesDirectory = new File("src/test/resources/data1.txt");
         new Indexer(resourcesDirectory);
-        new Searcher(Arrays.asList("Hello", "Business"));
+        new Searcher("Hello Business");
 
         Assert.assertTrue(Searcher.searchResults.get(0).words.size() == 2);
         Assert.assertTrue(Searcher.searchResults.size() == 1);

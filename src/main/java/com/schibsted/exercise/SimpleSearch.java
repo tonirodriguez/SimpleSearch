@@ -40,8 +40,7 @@ public class SimpleSearch {
                     break;
 
                 default:
-                    System.out.println("Searching for " + line);
-                    new Searcher(new ArrayList<String>(Arrays.asList(line.split(" "))));
+                    new Searcher(line);
                     break;
             }
         }

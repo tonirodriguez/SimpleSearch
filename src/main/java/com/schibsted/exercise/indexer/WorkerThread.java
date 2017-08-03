@@ -42,7 +42,7 @@ public class WorkerThread implements Runnable {
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(path, file));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                for (String word : new Cleaner(line).noSpecialChars) {//  .removeSplitAndRemoveSpecialChars()) {
+                for (String word : new Cleaner().splitAndRemoveSpecialChars(line)) {//  .removeSplitAndRemoveSpecialChars()) {
                     countWords++;
                     if (stopWords.contains(word))
                         continue;
