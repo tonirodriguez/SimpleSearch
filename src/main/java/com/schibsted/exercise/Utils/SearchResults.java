@@ -6,11 +6,6 @@ public class SearchResults {
     public String file;
     public ArrayList<Boolean> words;
 
-
-    //public SearchResults() {
-
-    //}
-
     public SearchResults(String file, ArrayList<Boolean> words) {
         this.file = file;
         this.words = words;

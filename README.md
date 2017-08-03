@@ -10,12 +10,13 @@ java -jar target/SimpleSearch-0.0.1-SNAPSHOT.jar .
 ## TO DO LIST
 
 ### Mandatory things that lacks
-- Ranking
 - Document the Readme file
 - Finish the Tests
+- Filter the search string
+- Special Characters
+- Order Results
 
 ### Improvements for the Project
-- Parallelize the indexer
 - Extract stopwords to an external file
 - Interfaces to change the implementation
 

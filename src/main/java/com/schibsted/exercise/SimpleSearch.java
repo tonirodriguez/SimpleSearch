@@ -36,7 +36,7 @@ public class SimpleSearch {
 
                 case ":h":
                 case ":H":
-                    System.out.println("This is the help");
+                    System.out.println("This is the help message, for exit introduce :q");
                     break;
 
                 default:

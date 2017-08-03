@@ -1,6 +1,8 @@
 package com.schibsted.exercise.indexer;
 
 import com.schibsted.exercise.Utils.Tupla;
+import com.schibsted.exercise.Utils.Cleaner;
+import com.schibsted.exercise.Utils.StopWords;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,14 +36,15 @@ public class WorkerThread implements Runnable {
 
 
     public synchronized int indexFile(String path, String file, int count) throws IOException {
+        List<String> stopWords = new StopWords().stopwords;
+
         int countWords = 0;
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(path, file));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                for (String _word : line.split("\\W+")) {
-                    String word = _word.toLowerCase();
+                for (String word : new Cleaner(line).noSpecialChars) {//  .removeSplitAndRemoveSpecialChars()) {
                     countWords++;
-                    if (Indexer.stopwords.contains(word))
+                    if (stopWords.contains(word))
                         continue;
                     List<Integer> idx = Indexer.index.get(word);
                     if (idx == null) {
@@ -59,7 +62,6 @@ public class WorkerThread implements Runnable {
         catch(IOException e) {
             System.out.println("Exception reading file " + path + "/" + file);
         }
-
         System.out.println("indexed " + file + " "  + countWords + " words");
 
         return(countWords);

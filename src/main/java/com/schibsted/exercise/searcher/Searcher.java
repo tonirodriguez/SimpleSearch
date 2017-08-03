@@ -65,8 +65,16 @@ public class Searcher {
 
     public void printResults() {
         for (SearchResults search: searchResults) {
-            float ocurrences = Collections.frequency(search.words, true);
-            System.out.println(search.file + " " + ((ocurrences / searchSize) * 100.0) + "%" );
-        }
+            double rank = calculateRank(search);
+            System.out.println(search.file + " " + String.format("%.4f", rank) + "%" );
+            }
+    }
+
+    public double calculateRank(SearchResults search) {
+        double occurrences = Collections.frequency(search.words, true);
+        double result = ((occurrences / searchSize) * 100d);
+
+        return result;
+
     }
 }

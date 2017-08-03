@@ -38,9 +38,23 @@ public class IndexerTest {
         File resourcesDirectory = new File("src/test/resources/data1.txt");
         new Indexer(resourcesDirectory);
 
-        Assert.assertTrue(Indexer.index.size() == 84);
-        Assert.assertTrue(Indexer.files.get(0).words() == 177);
+        System.out.println(Indexer.files.size());
+
+
+
+        Assert.assertTrue(Indexer.index.size() == 83);
+        Assert.assertTrue(Indexer.files.get(0).words() == 175);
         Assert.assertEquals(Indexer.files.get(0).file(), "data1.txt");
+    }
+
+    @Test
+    public void indexerFileStopWords() throws IOException {
+        File resourcesDirectory = new File("src/test/resources/stopwords.txt");
+        new Indexer(resourcesDirectory);
+
+        Assert.assertTrue(Indexer.index.size() == 0);
+        Assert.assertTrue(Indexer.files.get(0).words() == 4);
+        Assert.assertEquals(Indexer.files.get(0).file(), "stopwords.txt");
     }
 
     @Test
@@ -48,7 +62,7 @@ public class IndexerTest {
         File resourcesDirectory = new File("src/test/resources");
         new Indexer(resourcesDirectory);
 
-        Assert.assertTrue(Indexer.files.size() == 3);
+        Assert.assertTrue(Indexer.files.size() == 4);
     }
 
     @After
