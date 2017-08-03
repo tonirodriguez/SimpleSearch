@@ -9,9 +9,6 @@ import java.util.concurrent.Executors;
 import com.schibsted.exercise.Utils.Tupla;
 
 public class Indexer {
-
-
-
     public static Map<String, List<Integer>> index = new HashMap<String, List<Integer>>();
     public static List<Tupla> files = new ArrayList<Tupla>();
     private ExecutorService executor = Executors.newCachedThreadPool();
