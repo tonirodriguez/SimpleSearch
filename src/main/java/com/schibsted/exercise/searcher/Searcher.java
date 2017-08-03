@@ -32,7 +32,7 @@ public class Searcher {
 
     public Set<Integer> searchWord(String word) {
         Set<Integer> answer = new HashSet<Integer>();
-        if(stopWords.contains(word)) {
+        if (stopWords.contains(word)) {
             invalidWords++;
         } else {
             List<Integer> idx = Indexer.index.get(word);
@@ -76,10 +76,25 @@ public class Searcher {
     }
 
     public void printResults() {
-        for (SearchResults search: searchResults) {
-            double rank = calculateRank(search);
-            System.out.println(search.file + " " + String.format("%.4f", rank) + "%" );
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        ValueComparator vc = new ValueComparator(map);
+        TreeMap<String, Double> sortedResult = new TreeMap<String, Double>(vc);
+
+        for (SearchResults search : searchResults) {
+            map.put(search.file, calculateRank(search));
+        }
+
+        sortedResult.putAll(map);
+
+        int results = 0;
+        for(Map.Entry<String,Double> entry : sortedResult.entrySet()) {
+            if (results < 10) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+                results++;
+            } else {
+                continue;
             }
+        }
     }
 
     public static double calculateRank(SearchResults search) {
@@ -87,6 +102,21 @@ public class Searcher {
         double result = ((occurrences / (searchSize - invalidWords)) * 100d);
 
         return result;
+    }
 
+    private class ValueComparator implements Comparator<String> {
+        Map<String, Double> base;
+
+        public ValueComparator(Map<String, Double> base) {
+            this.base = base;
+        }
+
+        public int compare(String a, String b) {
+            if (base.get(a) >= base.get(b)) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
     }
 }

@@ -1,20 +1,11 @@
 # README
 
-Basic instructions for build the artifact, execute the tests and run the searcher
+Basic instructions for test, build the artifact and execute the tests and run the searcher
 
 ```sh
-mvn package
 mvn test
-java -jar target/SimpleSearch-0.0.1-SNAPSHOT.jar .
+mvn package
+java -jar target/SimpleSearch-0.0.1-SNAPSHOT.jar <directory with text files>
 ```
-## TO DO LIST
 
-### Mandatory things that lacks
-- Document the Readme file
-- Finish the Tests
-- Order Results
-
-### Improvements for the Project
-- Extract stopwords to an external file
-- Interfaces to change the implementation
 

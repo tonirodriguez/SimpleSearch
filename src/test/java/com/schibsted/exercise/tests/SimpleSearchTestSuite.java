@@ -6,6 +6,5 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        SearchTest.class
 })
 public class SimpleSearchTestSuite{}
