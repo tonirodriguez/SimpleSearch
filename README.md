@@ -12,8 +12,6 @@ java -jar target/SimpleSearch-0.0.1-SNAPSHOT.jar .
 ### Mandatory things that lacks
 - Document the Readme file
 - Finish the Tests
-- Filter the search string
-- Special Characters
 - Order Results
 
 ### Improvements for the Project

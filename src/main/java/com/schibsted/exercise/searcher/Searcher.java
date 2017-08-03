@@ -11,8 +11,8 @@ import static com.schibsted.exercise.indexer.Indexer.files;
 public class Searcher {
 
     public static List<SearchResults> searchResults = new ArrayList<SearchResults>();
-    private int searchSize;
-    private int invalidWords = 0;
+    private static int searchSize;
+    private static int invalidWords = 0;
     private Cleaner cleaner = new Cleaner();
     private List<String> stopWords = new StopWords().stopwords;
 
@@ -82,7 +82,7 @@ public class Searcher {
             }
     }
 
-    public double calculateRank(SearchResults search) {
+    public static double calculateRank(SearchResults search) {
         double occurrences = Collections.frequency(search.words, true);
         double result = ((occurrences / (searchSize - invalidWords)) * 100d);
 
