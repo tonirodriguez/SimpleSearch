@@ -17,6 +17,7 @@ public class Searcher {
     private List<String> stopWords = new StopWords().stopwords;
 
     public Searcher(String words) throws Exception {
+        invalidWords = 0;
         searchResults.clear();
         String[] searchString = cleaner.splitAndRemoveSpecialChars(words);
         searchSize = searchString.length;
