@@ -66,4 +66,13 @@ public class SearcherTest {
 
         Assert.assertTrue(Searcher.calculateRank(Searcher.searchResults.get(0)) == 100.0);
     }
+
+    @Test
+    public void RankTestFullEmptyWords() throws Exception {
+        File resourcesDirectory = new File("src/test/resources/data1.txt");
+        new Indexer(resourcesDirectory);
+        new Searcher("this is you");
+
+        Assert.assertTrue(Searcher.calculateRank(Searcher.searchResults.get(0)) == 0.0);
+    }
 }
