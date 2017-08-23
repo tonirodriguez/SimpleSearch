@@ -99,9 +99,12 @@ public class Searcher {
     }
 
     public static double calculateRank(SearchResults search) {
-        double occurrences = Collections.frequency(search.words, true);
-        double result = ((occurrences / (searchSize - invalidWords)) * 100d);
-
+        double occurrences;
+        double result = 0;
+        if (invalidWords != searchSize) {
+            occurrences = Collections.frequency(search.words, true);
+            result = ((occurrences / (searchSize - invalidWords)) * 100d);
+        }
         return result;
     }
 
